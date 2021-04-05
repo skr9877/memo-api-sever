@@ -1,19 +1,17 @@
 package me.kimheesuk.memoapiserver.service;
 
+import lombok.RequiredArgsConstructor;
 import me.kimheesuk.memoapiserver.dto.MemoDto;
-import me.kimheesuk.memoapiserver.jpa.domain.Memo;
 import me.kimheesuk.memoapiserver.jpa.repository.MemoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemoServiceImpl implements MemoService{
-    @Autowired
-    MemoRepository memoRepository;
+    private final MemoRepository memoRepository;
 
     @Override
     public List<MemoDto> getMemoList() {
@@ -27,11 +25,15 @@ public class MemoServiceImpl implements MemoService{
 
     @Override
     public void addMemo(MemoDto memoDto) {
+        setCurrentTime(memoDto);
+
         memoRepository.save(MemoDto.convertMemoDtoToEntity(memoDto));
     }
 
     @Override
     public void editMemo(MemoDto memoDto) {
+        setCurrentTime(memoDto);
+
         memoRepository.setMemoByMemoId(memoDto.getId(), memoDto.getTitle(), memoDto.getContents(), LocalDateTime.now());
     }
 
@@ -40,5 +42,11 @@ public class MemoServiceImpl implements MemoService{
         memoRepository.deleteById(memoId);
     }
 
+    public void setCurrentTime(MemoDto memoDto){
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        memoDto.setCreateTime(currentTime);
+        memoDto.setUpdateTime(currentTime);
+    }
 
 }

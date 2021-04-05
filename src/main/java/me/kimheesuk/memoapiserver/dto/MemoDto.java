@@ -14,13 +14,16 @@ import org.springframework.ui.ModelMap;
 import sun.management.VMOptionCompositeData;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class MemoDto {
+public class MemoDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     private Long id;
