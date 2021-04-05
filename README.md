@@ -40,9 +40,24 @@ INDEX : (USER_ID, CREATE_TIME)
 #2. 사용법
 
 1. 하기 두 옵션으로 DDL 및 샘플 데이터 create
+
+
+
 spring.jpa.hibernate.ddl-auto=create
+
+
+
 ApplicationRunnerImpl 클래스
 
+
+
+
 2. DDL 및 데이터 생성 후
+
+
+
 spring.jpa.hibernate.ddl-auto=validate
+
+
+
 ApplicationRunnerImpl 클래스 @Component 제거 혹은 클래스 삭제
